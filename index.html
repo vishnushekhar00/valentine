@@ -30,6 +30,7 @@
       max-width: 380px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.15);
       position: relative;
+      z-index: 2;
     }
 
     .emoji {
@@ -75,12 +76,66 @@
       position: fixed;
       top: 65%;
       left: 55%;
+      z-index: 3;
     }
 
     .footer {
       margin-top: 16px;
       font-size: 12px;
       color: #888;
+    }
+
+    /* Hearts animation */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 20px;
+      animation: floatUp 6s linear forwards;
+      opacity: 0.8;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-110vh) scale(1.4);
+        opacity: 0;
+      }
+    }
+
+    /* YES screen text */
+    .yes-screen {
+      height: 100vh;
+      width: 100vw;
+      background: linear-gradient(135deg, #ffafcc, #ffc8dd);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .yes-text {
+      max-width: 500px;
+      z-index: 2;
+    }
+
+    .line {
+      font-size: 22px;
+      margin: 14px 0;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .line.show {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
@@ -103,9 +158,15 @@
 
   <button id="noBtn">No 😶</button>
 
+  <!-- 🎶 MUSIC (change link if you want) -->
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_0c9c8e0c30.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
+    const music = document.getElementById("bgMusic");
 
     function moveButton() {
       const padding = 20;
@@ -115,33 +176,45 @@
       noBtn.style.top = `${y}px`;
     }
 
-    noBtn.addEventListener("mouseover", moveButton); // PC
-    noBtn.addEventListener("touchstart", moveButton); // Phone
+    noBtn.addEventListener("mouseover", moveButton);
+    noBtn.addEventListener("touchstart", moveButton);
     noBtn.addEventListener("click", moveButton);
 
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 15 + 15 + "px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+
     yesBtn.addEventListener("click", () => {
+      music.play();
+
       document.body.innerHTML = `
-        <div style="
-          height:100vh;
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          background:linear-gradient(135deg,#ffafcc,#ffc8dd);
-          text-align:center;
-          padding:30px;
-        ">
-          <div>
-            <h1 style="font-size:34px;">💖 Congratulations, baby 💖</h1>
-            <p style="font-size:20px; margin-top:20px; line-height:1.5;">
-              You’re holding the best Valentine in this world,<br>
-              and he’s deeply, madly grateful to call you his.
-            </p>
-            <p style="font-size:22px; margin-top:25px;">🧸💕</p>
+        <div class="yes-screen">
+          <div class="yes-text">
+            <div class="line">💖 Congratulations, baby 💖</div>
+            <div class="line">You’re holding the best Valentine in this world,</div>
+            <div class="line">and he’s deeply, madly grateful to call you his.</div>
+            <div class="line">🧸💕</div>
           </div>
         </div>
       `;
+
+      const lines = document.querySelectorAll(".line");
+      lines.forEach((line, index) => {
+        setTimeout(() => {
+          line.classList.add("show");
+        }, index * 600);
+      });
+
+      setInterval(createHeart, 500);
     });
   </script>
 
 </body>
 </html>
+
