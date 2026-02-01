@@ -9,7 +9,7 @@
 * { box-sizing: border-box; margin:0; padding:0; }
 
 body {
-  font-family: Arial, sans-serif; /* normal font */
+  font-family: Arial, sans-serif;
   height: 100vh;
   background: linear-gradient(135deg, #ffd6e8, #fff1f7);
   display: flex;
@@ -118,20 +118,45 @@ button:hover {
   justify-content: center;
   text-align: center;
   padding: 30px;
+  overflow: hidden;
+}
+
+.yes-text {
+  text-align: center;
 }
 
 .yes-text .line {
-  font-family: Arial, sans-serif; /* normal font */
-  font-size: 22px; /* slightly smaller than before */
-  color: #000; /* normal black text */
-  margin: 12px 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+  margin: 18px 0;
   opacity: 0;
-  transform: translateY(15px) scale(0.95);
-  transition: 0.8s;
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.8s ease-out;
 }
+
 .yes-text .line.show {
   opacity: 1;
   transform: translateY(0) scale(1);
+}
+
+/* Gradient effect for highlighted lines */
+.yes-text .line.gradient {
+  background: linear-gradient(135deg, #ff9ac3, #ff5fa2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Optional: subtle scale pulse for the whole screen */
+.yes-screen.show {
+  animation: pulseScreen 0.8s ease forwards;
+}
+
+@keyframes pulseScreen {
+  0% { transform: scale(0.95); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
 }
 </style>
 </head>
@@ -154,10 +179,10 @@ button:hover {
 
 <div class="yes-screen" id="yesScreen">
   <div class="yes-text">
-    <div class="line">💖 Congratulations, baby 💖</div>
+    <div class="line gradient">💖 Congratulations, baby 💖</div>
     <div class="line">You’re holding the best Valentine in this world,</div>
     <div class="line">and he’s deeply, madly grateful to call you his.</div>
-    <div class="line">🧸💕</div>
+    <div class="line gradient">🧸💕</div>
   </div>
 </div>
 
@@ -194,6 +219,7 @@ yesBtn.onclick = () => {
   card.style.display = "none";
   noBtn.style.display = "none";
   yesScreen.style.display = "flex";
+  yesScreen.classList.add("show");
 
   document.querySelectorAll(".yes-text .line").forEach((l,i)=>{
     setTimeout(()=>l.classList.add("show"), i*900); // slower reveal
