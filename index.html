@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Will You Be My Valentine?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      font-family: 'Poppins', sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffd6e8, #fff1f7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 32px 26px 40px;
+      border-radius: 22px;
+      text-align: center;
+      width: 90%;
+      max-width: 380px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      position: relative;
+    }
+
+    .emoji {
+      font-size: 60px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 22px;
+      color: #333;
+      margin-bottom: 25px;
+      line-height: 1.4;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+    }
+
+    button {
+      border: none;
+      padding: 12px 26px;
+      font-size: 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    #yesBtn {
+      background: #ff4d88;
+      color: white;
+      box-shadow: 0 8px 20px rgba(255,77,136,0.4);
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.06);
+    }
+
+    #noBtn {
+      background: #eee;
+      color: #555;
+      position: fixed;
+      top: 65%;
+      left: 55%;
+    }
+
+    .footer {
+      margin-top: 16px;
+      font-size: 12px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="emoji">🧸💕</div>
+
+    <h1>
+      Mr Ayushi,<br>
+      will you be my Valentine?
+    </h1>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes 💖</button>
+    </div>
+
+    <div class="footer">No is feeling shy today 🙈</div>
+  </div>
+
+  <button id="noBtn">No 😶</button>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+
+    function moveButton() {
+      const padding = 20;
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding);
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    }
+
+    noBtn.addEventListener("mouseover", moveButton); // PC
+    noBtn.addEventListener("touchstart", moveButton); // Phone
+    noBtn.addEventListener("click", moveButton);
+
+    yesBtn.addEventListener("click", () => {
+      document.body.innerHTML = `
+        <div style="
+          height:100vh;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          background:linear-gradient(135deg,#ffafcc,#ffc8dd);
+          text-align:center;
+          padding:30px;
+        ">
+          <div>
+            <h1 style="font-size:34px;">💖 Congratulations, baby 💖</h1>
+            <p style="font-size:20px; margin-top:20px; line-height:1.5;">
+              You’re holding the best Valentine in this world,<br>
+              and he’s deeply, madly grateful to call you his.
+            </p>
+            <p style="font-size:22px; margin-top:25px;">🧸💕</p>
+          </div>
+        </div>
+      `;
+    });
+  </script>
+
+</body>
+</html>
