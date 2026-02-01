@@ -5,14 +5,11 @@
 <title>Will You Be My Valentine?</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Google Fonts for romantic style -->
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
 <style>
 * { box-sizing: border-box; margin:0; padding:0; }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: Arial, sans-serif; /* normal font */
   height: 100vh;
   background: linear-gradient(135deg, #ffd6e8, #fff1f7);
   display: flex;
@@ -123,18 +120,16 @@ button:hover {
   padding: 30px;
 }
 
-.line {
-  font-family: 'Dancing Script', cursive;
-  font-size: 26px;
-  margin: 18px 0;
-  color: #ff4d88;
+.yes-text .line {
+  font-family: Arial, sans-serif; /* normal font */
+  font-size: 22px; /* slightly smaller than before */
+  color: #000; /* normal black text */
+  margin: 12px 0;
   opacity: 0;
   transform: translateY(15px) scale(0.95);
   transition: 0.8s;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
-
-.line.show {
+.yes-text .line.show {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
@@ -152,17 +147,17 @@ button:hover {
   <div class="emoji">🧸💕</div>
   <h1>Mr Ayushi,<br>will you be my Valentine?</h1>
   <button id="yesBtn">Yes 💖</button>
-  <div class="footer">No is feeling shy today 🙈</div>
+  <div class="footer">Why are you chasing me, Ayushi? 🤨</div>
 </div>
 
 <button id="noBtn">No 😭</button>
 
 <div class="yes-screen" id="yesScreen">
-  <div>
-    <div class="line">💖 Hey Ayushi… can I steal your heart today?</div>
-    <div class="line">Because mine has been yours for as long as I can remember.</div>
-    <div class="line">Every smile, every laugh… it’s magic when it’s yours.</div>
-    <div class="line">So, will you be my Valentine? 🧸💕</div>
+  <div class="yes-text">
+    <div class="line">💖 Congratulations, baby 💖</div>
+    <div class="line">You’re holding the best Valentine in this world,</div>
+    <div class="line">and he’s deeply, madly grateful to call you his.</div>
+    <div class="line">🧸💕</div>
   </div>
 </div>
 
@@ -200,7 +195,7 @@ yesBtn.onclick = () => {
   noBtn.style.display = "none";
   yesScreen.style.display = "flex";
 
-  document.querySelectorAll(".line").forEach((l,i)=>{
+  document.querySelectorAll(".yes-text .line").forEach((l,i)=>{
     setTimeout(()=>l.classList.add("show"), i*900); // slower reveal
   });
 
