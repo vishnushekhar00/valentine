@@ -52,9 +52,20 @@ button {
 
 #noBtn {
   background: #eee;
-  position: fixed;
-  top: 65%;
-  left: 55%;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  transition: 0.2s;
+}
+
+@media (max-width: 480px) {
+  #noBtn {
+    top: 65%;
+    padding: 10px 20px;
+    font-size: 14px;
+  }
 }
 
 .footer {
@@ -107,7 +118,7 @@ button {
 
 <body>
 
-<!-- 🎶 AUDIO (NEVER REMOVED) -->
+<!-- 🎶 AUDIO -->
 <audio id="bgMusic" loop preload="auto">
   <source src="https://raw.githubusercontent.com/vishnushekhar00/valentine/main/yes.mp3" type="audio/mpeg">
 </audio>
@@ -139,11 +150,15 @@ const yesScreen = document.getElementById("yesScreen");
 
 music.volume = 0.8;
 
+// No button hover - stays inside screen
 noBtn.addEventListener("mouseover", () => {
-  noBtn.style.left = Math.random()*80 + "vw";
-  noBtn.style.top = Math.random()*80 + "vh";
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top = Math.random() * maxY + "px";
 });
 
+// Heart floating
 function heart() {
   const h = document.createElement("div");
   h.className = "heart";
@@ -153,8 +168,9 @@ function heart() {
   setTimeout(()=>h.remove(),6000);
 }
 
+// Yes button click
 yesBtn.onclick = () => {
-  music.play();               // 🔥 MUSIC PLAYS AND STAYS
+  music.play();
   card.style.display = "none";
   noBtn.style.display = "none";
   yesScreen.style.display = "flex";
