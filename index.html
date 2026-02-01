@@ -85,7 +85,7 @@
       color: #888;
     }
 
-    /* Hearts animation */
+    /* Hearts */
     .heart {
       position: fixed;
       bottom: -20px;
@@ -106,7 +106,7 @@
       }
     }
 
-    /* YES screen text */
+    /* YES screen */
     .yes-screen {
       height: 100vh;
       width: 100vw;
@@ -139,7 +139,13 @@
     }
   </style>
 </head>
+
 <body>
+
+  <!-- 🎶 MUSIC -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="https://raw.githubusercontent.com/vishnushekhar00/valentine/main/yes.mp3" type="audio/mpeg">
+  </audio>
 
   <div class="card">
     <div class="emoji">🧸💕</div>
@@ -158,17 +164,12 @@
 
   <button id="noBtn">No 😶</button>
 
-  <!-- 🎶 MUSIC (change link if you want) -->
-  <audio id="bgMusic" loop>
-  <source src="https://raw.githubusercontent.com/vishnushekhar00/valentine/main/yes.mp3" type="audio/mpeg">
-</audio>
-
-
-
   <script>
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
     const music = document.getElementById("bgMusic");
+
+    music.volume = 0.8;
 
     function moveButton() {
       const padding = 20;
@@ -193,7 +194,7 @@
     }
 
     yesBtn.addEventListener("click", () => {
-      music.play();
+      music.play().catch(() => {});
 
       document.body.innerHTML = `
         <div class="yes-screen">
@@ -207,10 +208,8 @@
       `;
 
       const lines = document.querySelectorAll(".line");
-      lines.forEach((line, index) => {
-        setTimeout(() => {
-          line.classList.add("show");
-        }, index * 600);
+      lines.forEach((line, i) => {
+        setTimeout(() => line.classList.add("show"), i * 600);
       });
 
       setInterval(createHeart, 500);
