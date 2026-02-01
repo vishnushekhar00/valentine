@@ -65,7 +65,21 @@ button:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 3;
-  transition: 0.2s;
+  transition: transform 0.2s;
+  font-size: 16px;
+}
+
+/* Cute shake animation on hover */
+#noBtn:hover {
+  animation: shake 0.3s;
+}
+
+@keyframes shake {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  25% { transform: translate(-48%, -50%) rotate(-10deg); }
+  50% { transform: translate(-52%, -50%) rotate(10deg); }
+  75% { transform: translate(-48%, -50%) rotate(-10deg); }
+  100% { transform: translate(-50%, -50%) rotate(0deg); }
 }
 
 @media (max-width: 480px) {
@@ -141,7 +155,7 @@ button:hover {
   <div class="footer">No is feeling shy today 🙈</div>
 </div>
 
-<button id="noBtn">No 😶</button>
+<button id="noBtn">No 😭</button>
 
 <div class="yes-screen" id="yesScreen">
   <div>
